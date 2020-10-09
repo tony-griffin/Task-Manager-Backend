@@ -1,38 +1,57 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
+const pool = require("./db");
 const port = 5000;
 
 // Middleware
+app.use(cors());
 app.use(express.json());
 
 app.get("", (req, res) => {
-  res.send("HEY HEY HEY!");
+  res.send("Working - Backend!");
 });
 
-app.get("", (req, res) => {
+app.get("/tasks", async (req, res) => {
   try {
-    res.send();
+    const allTasks = await pool.query("SELECT * FROM task");
+    res.json(allTasks.rows);
   } catch (error) {
-    console.error(error.message);
+    console.error(error);
   }
 });
 
-app.get("/:id", (req, res) => {
-  try {
-    const { id } = req.params;
-    const retrievedTask = window.localStorage.getItem(id);
-
-    res.send();
-  } catch (error) {
-    console.error(error.message);
-  }
-});
-
-app.post("", (req, res) => {
+app.post("/tasks", async (req, res) => {
   try {
     const { description } = req.body;
-  } catch (error) {}
+    console.log(description);
+    const newTask = await pool.query(
+      "INSERT INTO task (description) VALUEs($1) RETURNING *",
+      [description]
+    );
+    res.json(newTask.rows[0]);
+  } catch (error) {
+    console.error(error.message);
+  }
 });
+
+// app.get("", (req, res) => {
+//   try {
+//     res.send();
+//   } catch (error) {
+//     console.error(error.message);
+//   }
+// });
+
+// app.get("/:id", (req, res) => {
+//   try {
+//     const { id } = req.params;
+
+//     res.send();
+//   } catch (error) {
+//     console.error(error.message);
+//   }
+// });
 
 app.listen(port, () => {
   console.log(`Node server is running on ${port}`);
