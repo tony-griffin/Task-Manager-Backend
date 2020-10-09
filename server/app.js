@@ -12,6 +12,15 @@ app.get("", (req, res) => {
   res.send("Working - Backend!");
 });
 
+app.get("/tasks", async (req, res) => {
+  try {
+    const allTasks = await pool.query("SELECT * FROM task");
+    res.json(allTasks.rows);
+  } catch (error) {
+    console.error(error);
+  }
+});
+
 app.post("/tasks", async (req, res) => {
   try {
     const { description } = req.body;
