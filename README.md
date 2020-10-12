@@ -3,6 +3,7 @@
 Backend code for the Task Manager application
 
 ## Available Scripts
+From the root of the project:
 
 ```
 node server/app.js
