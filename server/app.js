@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const pool = require("./db");
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors());
@@ -15,7 +15,7 @@ app.get("", (req, res) => {
 // Create a task
 app.post("/tasks", async (req, res) => {
   try {
-    const { description } = req.body; 
+    const { description } = req.body;
     const newTask = await pool.query(
       "INSERT INTO task (description) VALUES($1) RETURNING *",
       [description]
