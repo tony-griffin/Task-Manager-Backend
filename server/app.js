@@ -2,14 +2,14 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const pool = require("./db");
-const port = process.env.PORT || 5000;
+const port = 5000;
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
 app.get("", (req, res) => {
-  res.send("Working - Backend!");
+  res.send("Working - Dockerised Backend!");
 });
 
 // Create a task
@@ -78,5 +78,5 @@ app.delete("/tasks/:id", async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Node server is running on ${port}`);
+  console.log(`Node server is running on ${port} in Docker`);
 });
