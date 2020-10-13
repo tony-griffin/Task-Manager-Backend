@@ -9,13 +9,13 @@ app.use(cors());
 app.use(express.json());
 
 app.get("", (req, res) => {
-  res.send("Working - Backend!");
+  res.send("Working - Dockerised Backend!");
 });
 
 // Create a task
 app.post("/tasks", async (req, res) => {
   try {
-    const { description } = req.body; 
+    const { description } = req.body;
     const newTask = await pool.query(
       "INSERT INTO task (description) VALUES($1) RETURNING *",
       [description]
@@ -78,5 +78,5 @@ app.delete("/tasks/:id", async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Node server is running on ${port}`);
+  console.log(`Node server is running on ${port} in Docker`);
 });
