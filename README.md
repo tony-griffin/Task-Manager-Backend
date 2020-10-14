@@ -19,12 +19,14 @@ Open [http://localhost:5000](http://localhost:5000) to view it in the browser.
 
 If you wish to run the dockerised version of this application:
 
-The Docker container is mapped to localhost port 5020 as default. You should map the host machines port to a port of your choosing. 
+The Docker container is mapped to localhost port 5020 as default. You should map the host machines port to a port of your choosing.
 ( HostPort:DockerPort )
 
 ```
 docker run -it -p 5020:5000 task-manager-backend
 ```
+
+Open [http://localhost:5020](http://localhost:5020) to view it in the browser.
 
 ## Frontend repository
 
